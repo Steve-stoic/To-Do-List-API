@@ -25,8 +25,7 @@ pip install -r requirements.txt
 
 
 3. Create a .env file in the project root directory with the following environment variables:
-   ```
-   	DB_USERNAME=your_username
+   ```DB_USERNAME=your_username
 	DB_PASSWORD=your_password
 	DB_HOST=your_database_host
 	DB_PORT=your_database_port
@@ -80,8 +79,10 @@ Content-Type: application/json
 #### * Retrieve all tasks:
 
 **Input:**
+```
 
 GET http://localhost:5000/tasks
+```
 
 **Response**
 ```json
