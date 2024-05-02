@@ -4,10 +4,8 @@ from datetime import datetime
 from dotenv import load_dotenv
 import os
 
-
+# Loads data from .env file
 load_dotenv()
-
-
 
 db_username = os.getenv('DB_USERNAME')
 db_password = os.getenv('DB_PASSWORD')
@@ -42,9 +40,11 @@ class Task(db.Model):
         return f"<Task {self.description}>"
     
 
-#the priorities that the can choose from user can set    
+#the priorities options that can used
 priority_options = ['high', 'medium', 'low']    
 
+
+#Creates tasks in the to do list
 @app.route('/tasks', methods=['POST'])
 def create_task():
     try:
@@ -79,7 +79,8 @@ def create_task():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-    
+
+ #Retrieves all tasks   
 @app.route('/tasks', methods=['GET'])
 def get_all_tasks():
     try:
@@ -119,6 +120,7 @@ def get_task_by_id(task_id):
             )
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
 
 #Update task
 @app.route('/tasks/<int:task_id>', methods=['PUT'])
