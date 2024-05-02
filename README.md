@@ -14,7 +14,7 @@ This is a simple To Do List application programming interface (API) built with F
 1. Clone the repository: 
 
 ```console
-git clone (https://github.com/Steve-stoic/To-Do-List-API.git)
+git clone https://github.com/Steve-stoic/To-Do-List-API.git
 ```
 
 2. Install the required dependencies:
