@@ -11,14 +11,21 @@ This is a simple To Do List application programming interface (API) built with F
 
 ## Installation
 
-1. Clone the repository: ```console
+1. Clone the repository: 
+
+```console
 git clone (https://github.com/Steve-stoic/To-Do-List-API.git)
 ```
-2. Install the required dependencies: ```console
+
+2. Install the required dependencies:
+ 
+```console
 pip install -r requirements.txt
 ```
+
+
 3. Create a .env file in the project root directory with the following environment variables:
-   ```.env
+   ```
    	DB_USERNAME=your_username
 	DB_PASSWORD=your_password
 	DB_HOST=your_database_host
@@ -48,7 +55,7 @@ pip install -r requirements.txt
 
 (Assuming you are using a tool like Postman)
 
-#### Create a new task:
+#### * Create a new task:
 
 **Input**
 
@@ -70,7 +77,7 @@ Content-Type: application/json
   "message": "Task for to do list created sucessfully"
 }
 ```
-#### Retrieve all tasks:
+#### * Retrieve all tasks:
 
 **Input:**
 
