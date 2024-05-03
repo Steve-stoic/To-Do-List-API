@@ -80,7 +80,7 @@ def create_task():
         return jsonify({'error': str(e)}), 500
 
 
- #Retrieves all tasks   
+#Retrieves all tasks   
 @app.route('/tasks', methods=['GET'])
 def get_all_tasks():
     try:
@@ -115,7 +115,7 @@ def get_task_by_id(task_id):
                     'description' : task.description,
                     'completed' : task.completed,
                     'priority' : task.priority if task.priority else None,
-                    'due_date' : task.due_date.strftime("%d-%m_%Y %H:%M:%S") if task.due_date else None
+                    'due_date' : task.due_date.strftime("%d-%m-%Y %H:%M:%S") if task.due_date else None
                 }
             )
     except Exception as e:
