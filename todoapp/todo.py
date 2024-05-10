@@ -78,28 +78,37 @@ def create_task():
         return jsonify({'message': 'Task for to do list created sucessfully',}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-#Retrieves all tasks   
+    
+#Retrieve all tasks, completed tasks and uncompleted tasks
 @app.route('/tasks', methods=['GET'])
-def get_all_tasks():
+def get_tasks():
     try:
-        tasks = Task.query.order_by(Task.id).all()
-        result = [ ]
+        status = request.args.get('status', default=None) 
+        if status not in ['completed', 'uncompleted', None]: #sets parameters that can be used to make query
+            return jsonify({'error': 'Invalid status parameter'}), 400
+
+        if status == 'completed':  #filters completed tasks
+            tasks = Task.query.filter_by(completed=True).all()
+        elif status == 'uncompleted':  #filters uncompleted tasks
+            tasks = Task.query.filter_by(completed=False).all()
+        else:
+            tasks = Task.query.all() #Retrieves all the tasks
+
+        task_data = [] 
         for task in tasks:
-            result.append(
-                {
-                    'id' : task.id,
-                    'description' : task.description,
-                    'completed' : task.completed,
-                    'priority' : task.priority if task.priority else None,
-                    'due_date' : task.due_date.strftime("%d-%m_%Y %H:%M:%S") if task.due_date else None
-                }
-            )
-        return jsonify(result), 200
+            task_data.append({
+                'id': task.id,
+                'description': task.description,
+                'completed': task.completed,
+                'priority': task.priority if task.priority else None,
+                'due_date': task.due_date.strftime("%d-%m-%Y %H:%M:%S") if task.due_date else None
+            })
+
+        return jsonify(task_data), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-   
+
+
 
 #Give details of each and every Task with its task status and the due date using task id
 @app.route('/tasks/<int:task_id>', methods=['GET'])
@@ -170,51 +179,6 @@ def delete_task_by_id(task_id):
         return jsonify({'message':'Task deleted successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-
-#Produce a list of all the completed tasks with their due dates
-@app.route('/tasks/completed', methods=['GET'])
-def completed_tasks():
-    try:
-        tasks = Task.query.filter_by(completed=True).all()
-
-        completed_tasks = []
-        for task in tasks:
-            completed_tasks.append(
-                {
-                    'id' : task.id,
-                    'description' : task.description,
-                    'completed' : task.completed,
-                    'priority' : task.priority if task.priority else None,
-                    'due_date' : task.due_date.strftime("%d-%m-%Y %H:%M:%S") if task.due_date else None
-                }
-            )
-
-        return jsonify(completed_tasks) 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500 
-
-#Produce a list of all the uncompleted tasks with their due dates
-@app.route('/tasks/uncompleted', methods=['GET'])
-def uncompleted_tasks():
-    try:
-        tasks = Task.query.filter_by(completed=False).all()
-
-        uncompleted_tasks = []
-        for task in tasks:
-            uncompleted_tasks.append(
-                {
-                    'id' : task.id,
-                    'description' : task.description,
-                    'completed' : task.completed,
-                    'priority' : task.priority if task.priority else None,
-                    'due_date' : task.due_date.strftime("%d-%m-%Y %H:%M:%S") if task.due_date else None
-                }
-            )
-
-        return jsonify(uncompleted_tasks), 200 
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500 
 
 
 

@@ -46,10 +46,10 @@ pip install -r requirements.txt
 | POST | `/tasks` | Creates a new task | 201 Created |
 | GET | `/tasks` | Retrieves all tasks | 200 OK |
 | GET | `/tasks/<int:task_id>` | Retrieves a specific task by ID | 200 OK (or 404 Not Found) |
-| GET | `/tasks/completed` | Retrieves all completed tasks. | 200 OK |
-| GET | `/tasks/uncompleted` | Retrieves all uncompleted tasks | 200 OK |
+| GET | `/tasks?status=completed` | Retrieves all completed tasks. | 200 OK |
+| GET | `/tasks?status=uncompleted` | Retrieves all uncompleted tasks | 200 OK |
 | PUT | `/tasks/<int:task_id>` | Updates a specific task by ID | 200 OK (or 404 Not Found) |
-
+| DELETE | `/tasks/<int:task_id>` | Deletes a specific task by ID | 200 OK (or 404 Not Found) |
 ### Example Usage
 
 (Assuming you are using a tool like Postman)
