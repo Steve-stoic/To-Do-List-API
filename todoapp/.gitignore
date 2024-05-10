@@ -1,3 +1,5 @@
 
 .env
-todoapp/
+bin
+include
+lib
